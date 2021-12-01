@@ -27,6 +27,17 @@ public class FarmaciaJFrame extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JComboBox comboBox;
+	private JRadioButton rdbtnNewRadioButton;
+	private JRadioButton rdbtnNewRadioButton_1;
+	private JRadioButton rdbtnNewRadioButton_2;
+	private JCheckBox chckbxNewCheckBox;
+	private JCheckBox chckbxNewCheckBox_1;
+	private ButtonGroup buttonGroup;
+	private boolean error = false;
+    private String errorMsg = "";
+	
+	
 
 	/**
 	 * Launch the application.
@@ -79,7 +90,7 @@ public class FarmaciaJFrame extends JFrame {
 		lblNewLabel_2.setBounds(254, 47, 210, 13);
 		contentPane.add(lblNewLabel_2);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Seleccione Uno", "Analg\u00E9sico", "Anal\u00E9ptico", "Anest\u00E9sico", "Anti\u00E1cido", "Antidepresivo", "Antibi\u00F3ticos"}));
 		comboBox.setBounds(5, 70, 239, 21);
 		contentPane.add(comboBox);
@@ -88,15 +99,15 @@ public class FarmaciaJFrame extends JFrame {
 		lblNewLabel_3.setBounds(5, 101, 201, 13);
 		contentPane.add(lblNewLabel_3);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Cofarma");
+		rdbtnNewRadioButton = new JRadioButton("Cofarma");
 		rdbtnNewRadioButton.setBounds(5, 120, 77, 21);
 		contentPane.add(rdbtnNewRadioButton);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Empsephar");
+		rdbtnNewRadioButton_1 = new JRadioButton("Empsephar");
 		rdbtnNewRadioButton_1.setBounds(84, 120, 93, 21);
 		contentPane.add(rdbtnNewRadioButton_1);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Cemefar");
+		rdbtnNewRadioButton_2 = new JRadioButton("Cemefar");
 		rdbtnNewRadioButton_2.setBounds(179, 120, 73, 21);
 		contentPane.add(rdbtnNewRadioButton_2);
 		
@@ -104,15 +115,15 @@ public class FarmaciaJFrame extends JFrame {
 		lblNewLabel_4.setBounds(254, 101, 209, 13);
 		contentPane.add(lblNewLabel_4);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Principal");
+		chckbxNewCheckBox = new JCheckBox("Principal");
 		chckbxNewCheckBox.setBounds(254, 120, 93, 21);
 		contentPane.add(chckbxNewCheckBox);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Segundaria");
+		chckbxNewCheckBox_1 = new JCheckBox("Segundaria");
 		chckbxNewCheckBox_1.setBounds(349, 120, 147, 21);
 		contentPane.add(chckbxNewCheckBox_1);
 		
-		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup = new ButtonGroup();
 		
 		buttonGroup.add(rdbtnNewRadioButton);
 		buttonGroup.add(rdbtnNewRadioButton_1);
@@ -120,14 +131,10 @@ public class FarmaciaJFrame extends JFrame {
 		
 		JButton btnNewButton = new JButton("Borrar");
 		btnNewButton.addActionListener(new ActionListener() {
+			//accion para el boton de borrado
 			public void actionPerformed(ActionEvent e) {
-				textField.setText("");
-				textField_1.setText("");
-				comboBox.setSelectedItem("Seleccione Uno");
-				buttonGroup.clearSelection();
-				chckbxNewCheckBox.setSelected(false);
-				chckbxNewCheckBox_1.setSelected(false);
-				
+				// limpia el formulairo
+				limpiarFormulario();				
 			}
 		});
 		btnNewButton.setBounds(137, 185, 85, 21);
@@ -136,62 +143,11 @@ public class FarmaciaJFrame extends JFrame {
 		JButton btnNewButton_1 = new JButton("Confirmar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean error = false;
-		        String errorMsg = "";
-		        
-		        if(textField.getText().equals("") || textField == null) {
-		        	error = true;
-		            errorMsg = errorMsg + "Debe ingresar un medicamento \n";
-		        }
-		        
-		        if(!textField.getText().equals("") && textField.getText() != null) {
-		        	Pattern patMedicamento = Pattern.compile("[0-9a-zA-Z]+");
-		            Matcher matMedicamento = patMedicamento.matcher(textField.getText());
-		            if (!matMedicamento.matches()) {
-		                error = true;
-		                errorMsg = errorMsg + "El medicamento solo debe contener números y letras \n";
-		            }
-		        }
-		        
-		        if (comboBox.getSelectedItem().equals("Seleccione Uno")) {
-		            error = true;
-		            errorMsg = errorMsg + "Debe seleccionar un tipo medicamento \n";
-		        }
-		        
-		        if(textField.getText().equals("") || textField == null) {
-		        	error = true;
-		            errorMsg = errorMsg + "Debe ingresar la cantidad de  medicamentos \n";
-		        }
-		        
-		        if(!textField_1.getText().equals("") && textField_1.getText() != null) {
-		        	Pattern patMedicamento = Pattern.compile("[0-9]+");
-		            Matcher matMedicamento = patMedicamento.matcher(textField_1.getText());
-		            if (!matMedicamento.matches()) {
-		                error = true;
-		                errorMsg = errorMsg + "La cantidad medicamento debe ser un número positivo \n";
-		            }
-		        }
-		        
-		        if (!rdbtnNewRadioButton.isSelected() && !rdbtnNewRadioButton_1.isSelected() && !rdbtnNewRadioButton_2.isSelected()) {
-		            error = true;
-		            errorMsg = errorMsg + "Debe seleccionar un distribuidor farmacéutico \n";
-		        }
-		        
-		        if(!chckbxNewCheckBox.isSelected() && !chckbxNewCheckBox_1.isSelected()) {
-		        	error = true;
-		            errorMsg = errorMsg + "Debe seleccionar un distribuidor farmacéutico \n";
-		        }
-		        
-		        if (error) {
-		            JOptionPane.showInternalMessageDialog(null, errorMsg, "Error Validacion", JOptionPane.ERROR_MESSAGE);
-		        } else {
-		            ResumenPedidoJFrame resumenPedidoJFrame = new ResumenPedidoJFrame(getSelectedButton(buttonGroup),
-		                    textField.getText(), textField_1.getText(), comboBox.getSelectedItem().toString(),
-		                    direccionSucursales(chckbxNewCheckBox, chckbxNewCheckBox_1));
-		            resumenPedidoJFrame.setVisible(true);
-		            closeJfrane();
-		        }
-		        
+				
+				// inicia la validacion del formulario
+				validacionFormulario();
+		        // inicia la comprobacion de los errores	        
+		        comprobacionDeErrores();
 			}
 		});
 		btnNewButton_1.setBounds(254, 185, 109, 21);
@@ -200,6 +156,80 @@ public class FarmaciaJFrame extends JFrame {
 		
 	}
 	
+	 // Comprueba si exiten errores y los imprime en pantalla, si no procede al otro jframe
+	private void validacionFormulario() {
+		error = false;
+        errorMsg = "";
+       
+       if(textField.getText().equals("") || textField == null) {
+       	error = true;
+           errorMsg = errorMsg + "Debe ingresar un medicamento \n";
+       }
+       
+       if(!textField.getText().equals("") && textField.getText() != null) {
+       	Pattern patMedicamento = Pattern.compile("[0-9a-zA-Z]+");
+           Matcher matMedicamento = patMedicamento.matcher(textField.getText());
+           if (!matMedicamento.matches()) {
+               error = true;
+               errorMsg = errorMsg + "El medicamento solo debe contener números y letras \n";
+           }
+       }
+       
+       if (comboBox.getSelectedItem().equals("Seleccione Uno")) {
+           error = true;
+           errorMsg = errorMsg + "Debe seleccionar un tipo medicamento \n";
+       }
+       
+       if(textField.getText().equals("") || textField == null) {
+       	error = true;
+           errorMsg = errorMsg + "Debe ingresar la cantidad de  medicamentos \n";
+       }
+       
+       if(!textField_1.getText().equals("") && textField_1.getText() != null) {
+       	Pattern patMedicamento = Pattern.compile("[0-9]+");
+           Matcher matMedicamento = patMedicamento.matcher(textField_1.getText());
+           if (!matMedicamento.matches()) {
+               error = true;
+               errorMsg = errorMsg + "La cantidad medicamento debe ser un número positivo \n";
+           }
+       }
+       
+       if (!rdbtnNewRadioButton.isSelected() && !rdbtnNewRadioButton_1.isSelected() && !rdbtnNewRadioButton_2.isSelected()) {
+           error = true;
+           errorMsg = errorMsg + "Debe seleccionar un distribuidor farmacéutico \n";
+       }
+       
+       if(!chckbxNewCheckBox.isSelected() && !chckbxNewCheckBox_1.isSelected()) {
+       	error = true;
+           errorMsg = errorMsg + "Debe seleccionar un distribuidor farmacéutico \n";
+       }
+	}
+	
+	 // Comprueba si exiten errores y los imprime en pantalla, si no procede al otro jframe
+	private void comprobacionDeErrores() {
+		if (error) {
+            JOptionPane.showInternalMessageDialog(null, errorMsg, "Error Validacion", JOptionPane.ERROR_MESSAGE);
+        } else {
+        	//Inicializa el frame de la confirmacion
+            ResumenPedidoJFrame resumenPedidoJFrame = new ResumenPedidoJFrame(getSelectedButton(buttonGroup),
+                    textField.getText(), textField_1.getText(), comboBox.getSelectedItem().toString(),
+                    direccionSucursales(chckbxNewCheckBox, chckbxNewCheckBox_1));
+            resumenPedidoJFrame.setVisible(true);
+            this.dispose();
+        }
+	}
+	
+	// inicializa el formulario nuevamente
+	private void limpiarFormulario() {
+		textField.setText("");
+		textField_1.setText("");
+		comboBox.setSelectedItem("Seleccione Uno");
+		buttonGroup.clearSelection();
+		chckbxNewCheckBox.setSelected(false);
+		chckbxNewCheckBox_1.setSelected(false);
+	}
+	
+	//Obtiene el valor del radiobutton seleccionado 
 	public String getSelectedButton(ButtonGroup group) {
         Enumeration<AbstractButton> e = group.getElements();
         while (e.hasMoreElements()) {
@@ -211,6 +241,7 @@ public class FarmaciaJFrame extends JFrame {
         return null;
     }
 	
+	// construye el texto cpn la direccion de las sucursales seleccionadas 
 	public String direccionSucursales(JCheckBox sucursal1, JCheckBox sucursal2) {
       
         String direccion = "";
@@ -225,8 +256,5 @@ public class FarmaciaJFrame extends JFrame {
         return direccion;
     }
 	
-	public void closeJfrane() {
-		this.dispose();
-	}
-	
+		
 }

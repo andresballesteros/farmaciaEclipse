@@ -41,8 +41,7 @@ public class ResumenPedidoJFrame extends JFrame {
 		JButton btnNewButton = new JButton("Cancelar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				closeJfrane();
-		        farmaciaJFrame.setVisible(true);
+				pedidoCancelado();
 			}
 		});
 		btnNewButton.setBounds(94, 155, 85, 21);
@@ -51,11 +50,7 @@ public class ResumenPedidoJFrame extends JFrame {
 		JButton btnNewButton_1 = new JButton("Enviar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Pedido enviado de forma correcta");
-		        JOptionPane.showMessageDialog(null, "Pedido enviado de forma correcta",
-		                "Confirmación", JOptionPane.INFORMATION_MESSAGE);
-		        closeJfrane();
-		        farmaciaJFrame.setVisible(true);
+				pedidoEnviado();
 			}
 		});
 		btnNewButton_1.setBounds(229, 155, 85, 21);
@@ -66,7 +61,18 @@ public class ResumenPedidoJFrame extends JFrame {
 		
 	}
 	
-	public void closeJfrane() {
-		this.dispose();
+	//confirmacion de envio y vuelta al formulario principal
+	private void pedidoEnviado() {
+		System.out.println("Pedido enviado de forma correcta");
+        JOptionPane.showMessageDialog(null, "Pedido enviado de forma correcta",
+                "Confirmación", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+        farmaciaJFrame.setVisible(true);
 	}
+	
+	//cancela el pedido y vuelve al formulario principal
+    private void pedidoCancelado() {
+    	this.dispose();
+        farmaciaJFrame.setVisible(true);
+    }
 }
