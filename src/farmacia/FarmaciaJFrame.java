@@ -251,7 +251,7 @@ public class FarmaciaJFrame extends JFrame {
         } else if (sucursal1.isSelected() && !sucursal2.isSelected()) {
             direccion = "Para la farmacia situada en Calle de la Rosa n.28";
         } else if (!sucursal1.isSelected() && sucursal2.isSelected()) {
-            direccion = "Para la farmacia situada en Calle de la Rosa n.28";
+            direccion = "Para la farmacia situada en Calle Alcazabilla n.3";
         }
         return direccion;
     }
